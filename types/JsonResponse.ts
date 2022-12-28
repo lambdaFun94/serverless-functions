@@ -1,6 +1,6 @@
 import HttpResponse from 'http-response.js';
 
-export interface IJsonResponse {
+interface IJsonResponse {
     status: HttpResponse | number,
     body: any,
     headers: any

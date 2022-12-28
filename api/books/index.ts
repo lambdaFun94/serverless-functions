@@ -39,14 +39,5 @@ export const Put = (req: Request): string => {
 // If this function is not specified, the default response will be a 405 Method Not Allowed error
 // Alternatively, you can only write a default function and not specify any other methods
 export default function Default(req: Request): JsonResponse {
-
-        switch (req.method) {
-                case "GET":
-                        return new JsonResponse(HttpResponse.OK, { ping: "pong" }, {})
-                case "POST":
-                        return new JsonResponse(HttpResponse.Created, { ping: "created" }, {})
-                default:
-                        return new JsonResponse(HttpResponse.MethodNotAllowed, {}, {})
-        }
-
+        return new JsonResponse(HttpResponse.MethodNotAllowed, {}, {})
 }
