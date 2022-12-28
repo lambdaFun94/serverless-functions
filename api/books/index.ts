@@ -5,7 +5,7 @@ import { IJsonResponse, JsonResponse } from '../../types/JsonResponse'
 
 // GET request to /api/books
 // Case insensitive - get, Get, GET, etc. all work
-export const Get = (req: Request): IJsonResponse => {
+export const GET = (req: Request): IJsonResponse => {
         const body = {
                 ping: "pong",
                 ping: { double: "pong", triple: "pong" }
@@ -17,11 +17,10 @@ export const Get = (req: Request): IJsonResponse => {
 
 // POST request to /api/books
 // Case insensitive - post, Post, POST, etc. all work
-export const Post = (req: Request): JsonResponse => {
+export const POST = (req: Request): JsonResponse => {
         const postBody = req.body // This is the body of the request
         const body = {
-                ping: "pong",
-                ping: { double: "pong", triple: "pong" }
+                ping: "created",
         }
         const headers = { apiKey: "12345597" }
 
@@ -40,5 +39,14 @@ export const Put = (req: Request): string => {
 // If this function is not specified, the default response will be a 405 Method Not Allowed error
 // Alternatively, you can only write a default function and not specify any other methods
 export default function Default(req: Request): JsonResponse {
-        return new JsonResponse(HttpResponse.MethodNotAllowed, {}, {})
+
+        switch (req.method) {
+                case "GET":
+                        return new JsonResponse(HttpResponse.OK, { ping: "pong" }, {})
+                case "POST":
+                        return new JsonResponse(HttpResponse.Created, { ping: "created" }, {})
+                default:
+                        return new JsonResponse(HttpResponse.MethodNotAllowed, {}, {})
+        }
+
 }
